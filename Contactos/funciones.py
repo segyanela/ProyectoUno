@@ -34,7 +34,7 @@ def mostrar_info_contacto():
             
             if nombre == nombrebuscado:
                 if apellido == apellidobuscado:
-                    print(f"{apellido},{nombre},{telefono}, {email}")
+                    print(f"{apellido},{nombre}. {telefono}. {email}")
         input()
 
 
