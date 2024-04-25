@@ -19,11 +19,12 @@ def mostrar_menu():
     print("1 - Mostrar Lista de contactos")
     print("2 - Mostrar informacion de un contactos")
     print("3 - Salir")
-
+    
 
 def mostrar_info_contacto():
     print("Ingrese el DNI del contacto a buscar")
     dni = input("> ")
+
 
 def salir():
     import time
@@ -34,19 +35,17 @@ def salir():
 
 def agregar_contacto():
     print("Ingrese los datos del nuevo contacto:")
-    print("Ingrese el dni:")
-    dni=input("> ")
     print("Ingrese el nombre:")
     nombre=input("> ")
     print("Ingrese el apellido:")
     apellido=input("> ")
     print("Ingrese la fecha de ingreso:")
-    fecha_ingreso=input("> ")
+    telefono=input("> ")
     print("Ingrese el email:")
     email=input("> ")
 
     c = Contacto(
-        dni, apellido, nombre, email, fecha_ingreso
+          apellido, nombre, telefono, email
     )
 
     guardar_contacto(c)
@@ -56,6 +55,6 @@ def agregar_contacto():
 
 def guardar_contacto(contacto):
     print("El contacto a guardar es:", contacto)
-    with open("inputs/Contactos.txt", "a") as archivo:
+    with open("inputs/Contactos.txt", "r") as archivo:
         archivo.write(contacto.to_linea())
     
