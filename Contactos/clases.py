@@ -17,10 +17,8 @@ class Contacto(Persona):
 
     
     def imprimir_linea(self):
-        print(f"{self.obtener_nombre_completo()}\t\t\t\t{self.telefono}")
+        print(f"{self.obtener_nombre_completo()}\t\t\t\t{self.telefono}\t\t\t\t{self.email}")
 
     
-    """
     def to_linea(self):
-        return f"{self.dni};{self.nombre};{self.apellido};{self.email};{self.fecha_ingreso}\n"
-    """
+        return f"{self.apellido}-{self.nombre}-{self.telefono}-{self.email}\n"

@@ -4,12 +4,12 @@ from .clases import Contacto
 
 def mostrar_lista_contactos():
     with open("inputs/Contactos.txt", "r") as archivo:
-        print("DNI\t\t\t\t APELLIDO Y NOMBRE\t\t\t\t EMAIL")
+        print("APELLIDO Y NOMBRE\t\t\t\t TELEFONO \t\t\t\t EMAIL")
         print("--------------------------------------------------------")
         for line in archivo:
             x = line.split("-")
-            nombre, apellido, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
-            a = Contacto(apellido, nombre, email)
+            apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
+            a = Contacto(apellido, nombre, telefono, email)
             a.imprimir_linea()
             
         input()
@@ -22,8 +22,23 @@ def mostrar_menu():
     
 
 def mostrar_info_contacto():
-    print("Ingrese el DNI del contacto a buscar")
-    dni = input("> ")
+    print("Ingrese el nombre del contacto a buscar")
+    nombrebuscado = input("> ")
+    print("Ingrese el apellido del contacto a buscar")
+    apellidobuscado = input("> ")
+
+    with open("inputs/Contactos.txt", "r") as archivo:
+        for line in archivo:
+            x = line.split("-")
+            apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
+            
+            if nombre == nombrebuscado:
+                if apellido == apellidobuscado:
+                    print(f"{apellido},{nombre},{telefono}, {email}")
+        input()
+
+
+
 
 
 def salir():
@@ -39,7 +54,7 @@ def agregar_contacto():
     nombre=input("> ")
     print("Ingrese el apellido:")
     apellido=input("> ")
-    print("Ingrese la fecha de ingreso:")
+    print("Ingrese telefono:")
     telefono=input("> ")
     print("Ingrese el email:")
     email=input("> ")
@@ -55,6 +70,7 @@ def agregar_contacto():
 
 def guardar_contacto(contacto):
     print("El contacto a guardar es:", contacto)
-    with open("inputs/Contactos.txt", "r") as archivo:
-        archivo.write(contacto.to_linea())
+    with open("inputs/Contactos.txt", "a") as archivo:
     
+        archivo.write(contacto.to_linea())
+
