@@ -74,3 +74,6 @@ def guardar_contacto(contacto):
     
         archivo.write(contacto.to_linea())
 
+
+def eliminar_contacto():
+    pass
