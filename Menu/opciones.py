@@ -17,14 +17,20 @@ MENU_PRINCIPAL = [
         "funcion" : "mostrar_info_contacto"
     },
 
-     {
+    {
         "id" : 4,
         "mensaje" : "Eliminar contacto",
-        "funcion" : "mostrar_info_contacto"
+        "funcion" : "eliminar_contacto"
     },
 
     {
         "id" : 5,
+        "mensaje" : "Modificar contacto",
+        "funcion" : "modificar_contacto"
+    },
+
+    {
+        "id" : 6,
         "mensaje" : "Salir",
         "funcion" : "salir"
     } 
