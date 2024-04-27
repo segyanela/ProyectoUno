@@ -1,6 +1,5 @@
 
-from .clases import Contacto
-import re
+from .clases_contacto import Contacto
 
 def mostrar_lista_contactos():
     with open("inputs/Contactos.txt", "r") as archivo:
@@ -140,13 +139,16 @@ def modificar_contacto():
         input()
 
 
-
 def salir():
     import time
     import sys
     print("Finalizando aplicacion en 2 segundos...")
     time.sleep(2)
     sys.exit()
+
+import email.utils
+
+print("Ingrese email")
 
 
 def agregar_contacto():
@@ -174,9 +176,14 @@ def agregar_contacto():
             print("El número de teléfono debe tener 10 dígitos. Inténtelo de nuevo.")
 
     
-    print("Ingrese email")
-    email = input()
-
+    email_valido = False
+    while not email_valido:
+        print("Ingrese el email:")
+        email = input("> ")
+        if re.match(r"[^@]+@[^@]+\.[^@]+", email):
+            email_valido = True
+        else:
+            print("El formato de email es inválido. Por favor, ingrese un email válido. Inténtelo de nuevo.")
 
     try:
         c = Contacto(apellido, nombre, telefono, email)

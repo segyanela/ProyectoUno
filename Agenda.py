@@ -1,4 +1,4 @@
-from menu.clases import Menu
+from menu.clases_menu import Menu
 from menu.opciones import MENU_PRINCIPAL
 
 if __name__ == "__main__":
