@@ -21,4 +21,5 @@ class Contacto(Persona):
 
     
     def to_linea(self):
-        return f"{self.apellido}-{self.nombre}-{self.telefono}-{self.email}\n"
+        return self.apellido.upper()+"-"+self.nombre.upper()+f"-{self.telefono}-{self.email}\n"
+    

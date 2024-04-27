@@ -1,6 +1,6 @@
 
 from .clases import Contacto
-
+import re
 
 def mostrar_lista_contactos():
     with open("inputs/Contactos.txt", "r") as archivo:
@@ -13,24 +13,23 @@ def mostrar_lista_contactos():
             a.imprimir_linea()
             
         input()
-    
 
-    
 
+# Búsqueda de un contacto.
 def mostrar_info_contacto():
     print("Ingrese el nombre del contacto a buscar")
     nombrebuscado = input("> ")
     print("Ingrese el apellido del contacto a buscar")
     apellidobuscado = input("> ")
-    encontro = None
 
+    encontro = None
     with open("inputs/Contactos.txt", "r") as archivo:
         for line in archivo:
             x = line.split("-")
             apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
             
 
-            if nombre == nombrebuscado and apellido == apellidobuscado:
+            if nombre == nombrebuscado.upper() and apellido == apellidobuscado.upper():
                    encontro = True
                    break
                    
@@ -62,7 +61,7 @@ def eliminar_contacto():
             x = line.split("-")
             apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
             
-            if nombre != nombrebuscado or apellido != apellidobuscado:
+            if nombre != nombrebuscado.upper() or apellido != apellidobuscado.upper():
                 archivo.write(line)
             else:
                 encontro = True
@@ -79,12 +78,14 @@ def mostrar_opciones():
         "1" : "Nombre",
         "2" : "Apellido",
         "3" : "Telefono",
-        "4" : "Email"
+        "4" : "Email",
+        "5" : "Salir"
     }
 
     print("Seleccione un campo a modificar.")
     for numero,opcion in opciones.items():
         print(f"\t{numero} - {opcion}")
+
 
 
 def modificar_contacto():
@@ -94,6 +95,7 @@ def modificar_contacto():
     apellidobuscado = input("> ")
     encontro = False
 
+
     with open("inputs/Contactos.txt", "r") as archivo:
         lines = archivo.readlines()
 
@@ -102,36 +104,31 @@ def modificar_contacto():
             x = line.split("-")
             apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
             
-            if nombre == nombrebuscado and apellido == apellidobuscado:
+            if nombre == nombrebuscado.upper() and apellido == apellidobuscado.upper():
                 encontro = True
                 opcion_valida = False
+
                 while not opcion_valida:
-                    print("Seleccione una opción para modificar:")
-                    print("1 - Modificar nombre")
-                    print("2 - Modificar apellido")
-                    print("3 - Modificar telefono")
-                    print("4 - Modificar email")
+                    mostrar_opciones()
                     opcion = input("> ")
                     
                     if opcion == "1":
-                        nuevo_nombre = input("Ingrese el nuevo nombre: ")
-                        line = f"{apellido}-{nuevo_nombre}-{telefono}-{email}\n"
+                        nombre = input("Ingrese el nuevo nombre: ")
                         opcion_valida = True
                     elif opcion == "2":
-                        nuevo_apellido = input("Ingrese el nuevo apellido: ")
-                        line = f"{nuevo_apellido}-{nombre}-{telefono}-{email}\n"
+                        apellido = input("Ingrese el nuevo apellido: ")
                         opcion_valida = True
                     elif opcion == "3":
-                        nuevo_telefono = input("Ingrese el nuevo telefono: ")
-                        line = f"{apellido}-{nombre}-{nuevo_telefono}-{email}\n"
+                        telefono = input("Ingrese el nuevo telefono: ")
                         opcion_valida = True
                     elif opcion == "4":
-                        nuevo_email = input("Ingrese el nuevo email: ")
-                        line = f"{apellido}-{nombre}-{telefono}-{nuevo_email}\n"
+                        email = input("Ingrese el nuevo email: ")
                         opcion_valida = True
                     else:
                         print("Opción inválida. Por favor, ingrese una opción válida.")
-
+                
+                c = Contacto(apellido, nombre, telefono, email)
+                line = c.to_linea()
                 archivo.write(line)
             else:
                 archivo.write(line)
@@ -140,15 +137,7 @@ def modificar_contacto():
         print("El contacto se ha modificado correctamente.")
     else:
         print("El contacto no se encuentra agendado.")
-    input()
-
-
-   
-    if encontro:
-        pass            
-    else:
-        print("El contacto no se encuentra agendado.")
-    input()
+        input()
 
 
 
@@ -159,15 +148,22 @@ def salir():
     time.sleep(2)
     sys.exit()
 
-import re
 
 def agregar_contacto():
     print("Ingrese los datos del nuevo contacto:")
-    print("Ingrese el nombre:")
-    nombre = input("> ")
-    print("Ingrese el apellido:")
+    print("Ingrese el nombre (solo letras):")
+    nombre = input()
+
+    while not nombre.isalpha():
+        print("El nombre solo debe contener letras. Inténtelo de nuevo.")
+        nombre = input("> ")
+
+    print("Ingrese el apellido (solo letras):")
     apellido = input("> ")
-    
+    while not apellido.isalpha():
+        print("El apellido solo debe contener letras. Inténtelo de nuevo.")
+        apellido = input("> ")
+
     telefono_valido = False
     while not telefono_valido:
         print("Ingrese telefono:")
@@ -177,14 +173,10 @@ def agregar_contacto():
         else:
             print("El número de teléfono debe tener 10 dígitos. Inténtelo de nuevo.")
 
-    email_valido = False
-    while not email_valido:
-        print("Ingrese el email:")
-        email = input("> ")
-        if re.match(r"[^@]+@[^@]+\.[^@]+", email):
-            email_valido = True
-        else:
-            print("El formato de email es inválido. Por favor, ingrese un email válido. Inténtelo de nuevo.")
+    
+    print("Ingrese email")
+    email = input()
+
 
     try:
         c = Contacto(apellido, nombre, telefono, email)
