@@ -199,7 +199,7 @@ def salir():
 def agregar_contacto():
     print("Ingrese los datos del nuevo contacto:")
     print("Ingrese el nombre (solo letras):")
-    nombre = input()
+    nombre = input("> ")
 
     while not nombre.isalpha():
         print("El nombre solo debe contener letras. Inténtelo de nuevo.")
