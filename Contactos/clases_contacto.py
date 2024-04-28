@@ -17,7 +17,7 @@ class Contacto(Persona):
 
     
     def imprimir_linea(self):
-        print(f"{self.obtener_nombre_completo()}\t\t\t\t{self.telefono}\t\t\t\t{self.email}")
+        print(f"{self.obtener_nombre_completo()} \t\t\t\t {self.telefono} \t\t\t\t {self.email}")
 
     
     def to_linea(self):

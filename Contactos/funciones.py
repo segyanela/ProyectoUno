@@ -1,18 +1,19 @@
 
 from .clases_contacto import Contacto
+import re
 
 def mostrar_lista_contactos():
     with open("inputs/Contactos.txt", "r") as archivo:
-        print("APELLIDO Y NOMBRE\t\t\t\t TELEFONO \t\t\t\t EMAIL")
-        print("--------------------------------------------------------")
+        print("--------------------------------------------------------------------------------------------------------------------")
+        print("APELLIDO Y NOMBRE\t\t\t\t\t TELEFONO \t\t\t\t EMAIL")
+        print("--------------------------------------------------------------------------------------------------------------------")
         for line in archivo:
             x = line.split("-")
             apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
             a = Contacto(apellido, nombre, telefono, email)
             a.imprimir_linea()
             
-        input()
-
+        input("Presione enter para continuar...")
 
 # Búsqueda de un contacto.
 def mostrar_info_contacto():
@@ -39,8 +40,7 @@ def mostrar_info_contacto():
         else:
             print("El contacto no se encuentra agendado.")
 
-        input()
-    pass
+        input("Presione enter para continuar...")
 
 
 
@@ -69,7 +69,7 @@ def eliminar_contacto():
         print("El contacto se ha eliminado correctamente.")
     else:
         print("El contacto no se encuentra agendado.")
-    input()
+    input("Presione enter para continuar...")
 
 
 def mostrar_opciones():
@@ -136,7 +136,7 @@ def modificar_contacto():
         print("El contacto se ha modificado correctamente.")
     else:
         print("El contacto no se encuentra agendado.")
-        input()
+    input("Presione enter para continuar...")
 
 
 def salir():
@@ -145,10 +145,6 @@ def salir():
     print("Finalizando aplicacion en 2 segundos...")
     time.sleep(2)
     sys.exit()
-
-import email.utils
-
-print("Ingrese email")
 
 
 def agregar_contacto():
@@ -189,9 +185,10 @@ def agregar_contacto():
         c = Contacto(apellido, nombre, telefono, email)
         guardar_contacto(c)
         print("El contacto ha sido guardado!")
-
     except ValueError as ve:
         print("Error:", ve)
+
+    input("Presione enter para continuar...")
 
 def guardar_contacto(contacto):
     print("El contacto a guardar es:", contacto)

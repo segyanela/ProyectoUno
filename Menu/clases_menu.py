@@ -14,7 +14,8 @@ class Menu():
 
     def mostrar_menu(self):
         self.limpiar_pantalla()
-
+        
+        print (" ")
         print("Opciones disponibles")
         for index, opcion in enumerate(self.MENU):
             print(f"{index+1} - {opcion['mensaje']}")
