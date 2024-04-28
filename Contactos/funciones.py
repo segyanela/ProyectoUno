@@ -12,17 +12,26 @@ def mostrar_lista_contactos():
             apellido, nombre, telefono, email = x[0], x[1], x[2], x[3].replace("\n", "")
             a = Contacto(apellido, nombre, telefono, email)
             a.imprimir_linea()
-            
+           
         input("Presione enter para continuar...")
 
 # Búsqueda de un contacto.
 def mostrar_info_contacto():
-    print("Ingrese el nombre del contacto a buscar")
+    print("Ingrese el nombre del contacto a buscar (solo letras):")
     nombrebuscado = input("> ")
-    print("Ingrese el apellido del contacto a buscar")
-    apellidobuscado = input("> ")
+    while not nombrebuscado.isalpha():
+        print("El nombre solo debe contener letras. Inténtelo de nuevo.")
+        nombrebuscado = input("> ")
+    
 
+    print("Ingrese el apellido del contacto a buscar (solo letras):")
+    apellidobuscado = input("> ")
+    while not apellidobuscado.isalpha():
+        print("El apellido solo debe contener letras. Inténtelo de nuevo.")
+        apellidobuscado = input("> ")
+    
     encontro = None
+
     with open("inputs/Contactos.txt", "r") as archivo:
         for line in archivo:
             x = line.split("-")
@@ -46,10 +55,19 @@ def mostrar_info_contacto():
 
 
 def eliminar_contacto():
-    print("Ingrese el nombre del contacto a eliminar")
+    print("Ingrese el nombre del contacto a eliminar (solo letras):")
     nombrebuscado = input("> ")
-    print("Ingrese el apellido del contacto a eliminar")
+    while not nombrebuscado.isalpha():
+        print("El nombre solo debe contener letras. Inténtelo de nuevo.")
+        nombrebuscado = input("> ")
+    
+
+    print("Ingrese el apellido del contacto a eliminar (solo letras):")
     apellidobuscado = input("> ")
+    while not apellidobuscado.isalpha():
+        print("El apellido solo debe contener letras. Inténtelo de nuevo.")
+        apellidobuscado = input("> ")
+
     encontro = False
 
     with open("inputs/Contactos.txt", "r") as archivo:
@@ -77,8 +95,7 @@ def mostrar_opciones():
         "1" : "Nombre",
         "2" : "Apellido",
         "3" : "Telefono",
-        "4" : "Email",
-        "5" : "Salir"
+        "4" : "Email"
     }
 
     print("Seleccione un campo a modificar.")
@@ -88,12 +105,21 @@ def mostrar_opciones():
 
 
 def modificar_contacto():
-    print("Ingrese el nombre del contacto a modificar")
+    print("Ingrese el nombre del contacto a modificar (solo letras):")
     nombrebuscado = input("> ")
-    print("Ingrese el apellido del contacto a modificar")
-    apellidobuscado = input("> ")
-    encontro = False
+    while not nombrebuscado.isalpha():
+        print("El nombre solo debe contener letras. Inténtelo de nuevo.")
+        nombrebuscado = input("> ")
+    
 
+    print("Ingrese el apellido del contacto a modificar (solo letras):")
+    apellidobuscado = input("> ")
+    while not apellidobuscado.isalpha():
+        print("El apellido solo debe contener letras. Inténtelo de nuevo.")
+        apellidobuscado = input("> ")
+    
+    
+    encontro = False
 
     with open("inputs/Contactos.txt", "r") as archivo:
         lines = archivo.readlines()
@@ -112,16 +138,39 @@ def modificar_contacto():
                     opcion = input("> ")
                     
                     if opcion == "1":
-                        nombre = input("Ingrese el nuevo nombre: ")
+                        print("Ingrese el nombre (solo letras):")
+                        nombre = input()
+
+                        while not nombre.isalpha():
+                            print("El nombre solo debe contener letras. Inténtelo de nuevo.")
+                            nombre = input("> ")
                         opcion_valida = True
                     elif opcion == "2":
-                        apellido = input("Ingrese el nuevo apellido: ")
-                        opcion_valida = True
+                         print("Ingrese el apellido (solo letras):")
+                         apellido = input("> ")
+                         while not apellido.isalpha():
+                            print("El apellido solo debe contener letras. Inténtelo de nuevo.")
+                            apellido = input("> ")
+                         opcion_valida = True
                     elif opcion == "3":
-                        telefono = input("Ingrese el nuevo telefono: ")
-                        opcion_valida = True
+                        telefono_valido = False
+                        while not telefono_valido:
+                            print("Ingrese telefono:")
+                            telefono = input("> ")
+                            if len(telefono) == 10:
+                                telefono_valido = True
+                            else:
+                                print("El número de teléfono debe tener 10 dígitos. Inténtelo de nuevo.")
+                            opcion_valida = True
                     elif opcion == "4":
-                        email = input("Ingrese el nuevo email: ")
+                        email_valido = False
+                        while not email_valido:
+                            print("Ingrese el email:")
+                            email = input("> ")
+                            if re.match(r"[^@]+@[^@]+\.[^@]+", email):
+                                email_valido = True
+                            else:
+                                print("El formato de email es inválido. Por favor, ingrese un email válido. Inténtelo de nuevo.")
                         opcion_valida = True
                     else:
                         print("Opción inválida. Por favor, ingrese una opción válida.")

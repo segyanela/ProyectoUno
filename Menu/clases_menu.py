@@ -14,19 +14,28 @@ class Menu():
 
     def mostrar_menu(self):
         self.limpiar_pantalla()
-        
-        print (" ")
-        print("Opciones disponibles")
+
+        print("\t\t\t\t\t--------------------------------------------------")
+        print ("\t\t\t\t\t\tSistema de Gestión de Contactos.")
+        print("\t\t\t\t\t--------------------------------------------------")
+        print("\t\t\t\t\tOpciones disponibles")
         for index, opcion in enumerate(self.MENU):
-            print(f"{index+1} - {opcion['mensaje']}")
+            print(f"\t\t\t\t\t{index+1} - {opcion['mensaje']}")
         print("Ingrese una opcion:")
         
-        opcion = self.obtener_opcion(int(input("> ")))
+        opcion_id = int(input("> "))
+        opcion = self.obtener_opcion(opcion_id)
         
-        self.limpiar_pantalla()
-        getattr(funciones, opcion["funcion"])()
-        
+        if opcion is None:
+            print("Por favor, seleccione una opción válida.")
+            input()
+            self.mostrar_menu()
+        else:
+            self.limpiar_pantalla()
+            getattr(funciones, opcion["funcion"])()
+
     def obtener_opcion(self, buscar_id):
         for index, opcion in enumerate(self.MENU):
             if (index + 1) == buscar_id:
                 return opcion
+        return None
